@@ -9,11 +9,15 @@ int precedence(char op)
         return 1;
     if (op == '*' || op == '/')
         return 2;
+    if (op == '^')
+        return 3;
     return 0;
 }
 // Function to perform arithmetic operations.
-int applyOp(int a, int b, char op)
+double applyOp(double a, double b, char op)
 {
+    int i = 0;
+    int result = 1;
     switch (op)
     {
     case '+':
@@ -24,7 +28,17 @@ int applyOp(int a, int b, char op)
         return a * b;
     case '/':
         return a / b;
+    case '^':
+        while (i < b)
+        {
+            result *= a;
+            i++;
+        }
+        return result;
+    default:
+        return a;
     }
+    return 1;
 }
 // Function that returns value of
 // expression after evaluation.
@@ -33,7 +47,7 @@ int evaluate(string tokens)
     int i;
 
     // stack to store integer values.
-    stack<int> values;
+    stack<double> values;
 
     // stack to store operators.
     stack<char> ops;
@@ -86,10 +100,10 @@ int evaluate(string tokens)
         {
             while (!ops.empty() && ops.top() != '(')
             {
-                int val2 = values.top();
+                double val2 = values.top();
                 values.pop();
 
-                int val1 = values.top();
+                double val1 = values.top();
                 values.pop();
 
                 char op = ops.top();
@@ -112,10 +126,10 @@ int evaluate(string tokens)
             // of 'ops' to top two elements in values stack.
             while (!ops.empty() && precedence(ops.top()) >= precedence(tokens[i]))
             {
-                int val2 = values.top();
+                double val2 = values.top();
                 values.pop();
 
-                int val1 = values.top();
+                double val1 = values.top();
                 values.pop();
 
                 char op = ops.top();
@@ -134,10 +148,10 @@ int evaluate(string tokens)
     // values.
     while (!ops.empty())
     {
-        int val2 = values.top();
+        double val2 = values.top();
         values.pop();
 
-        int val1 = values.top();
+        double val1 = values.top();
         values.pop();
 
         char op = ops.top();
@@ -147,6 +161,7 @@ int evaluate(string tokens)
     }
 
     // Top of 'values' contains result, return it.
+    // cout << values.size() << endl;
     return values.top();
 }
 int main()

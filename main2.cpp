@@ -5,7 +5,7 @@ using namespace std;
 // Function to perform arithmetic operations.
 int operator_application(int lhs, int rhs, char current_operator)
 {
-
+    int i = 0, result = 1;
     if (current_operator == '+')
     {
         return lhs + rhs;
@@ -18,10 +18,25 @@ int operator_application(int lhs, int rhs, char current_operator)
     {
         return lhs / rhs;
     }
-    if (current_operator == '*')
+    else if (current_operator == '*')
     {
         return lhs * rhs;
     }
+    else if (current_operator == '^')
+    {
+        while (i < rhs)
+        {
+            result *= lhs;
+            i++;
+        }
+        return result;
+    }
+    else
+    {
+        return lhs;
+    }
+
+    return 1;
 }
 
 //check for the precedence of the operator
@@ -35,6 +50,10 @@ int check_precedence(char current_operator)
     if (current_operator == '-' || current_operator == '+')
     {
         return 1;
+    }
+    if (current_operator == '^')
+    {
+        return 3;
     }
 
     return 0;
@@ -169,7 +188,9 @@ int main()
     {
         cout << "------waiting for input--------" << endl;
         cout << "------press ! to exit--------" << endl;
-        cin >> my_string;
+
+        //get whole line
+        cin.getline(my_string, 100);
 
         if (my_string[0] != '!')
         {

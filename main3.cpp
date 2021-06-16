@@ -1,18 +1,18 @@
 #include <bits/stdc++.h>
+#include <iostream>
+#include <string>
 
 using namespace std;
-// Function to find precedence of
-// operators.
-int precedence(char po)
-{
-    if (po == '+' || po == '-')
-        return 1;
-    if (po == '*' || po == '/')
-        return 2;
-    return 0;
-}
 
 int main()
 {
-    cout << "Hello" << endl;
+
+    char name[50];
+
+    // cin >> name;
+    cin.getline(name, 20);
+
+    cout << name << endl;
+
+    return 0;
 }
