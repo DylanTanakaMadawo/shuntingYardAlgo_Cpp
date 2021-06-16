@@ -77,6 +77,13 @@ int get_value(string my_string)
         if (my_string[i] == ' ')
             continue;
 
+        //accomodate negative numbers
+        else if (my_string[i] == '-')
+        {
+            my_numbers.top() *= -1;
+            continue;
+        }
+
         else if (my_string[i] == '(')
         {
             my_characters.push(my_string[i]);
@@ -90,8 +97,8 @@ int get_value(string my_string)
 
             // There may be more than one
             // digits in number.
-            while (i < my_string.length() &&
-                   isdigit(my_string[i]))
+            while (i < my_string.length() && isdigit(my_string[i]))
+
             {
                 x = (x * 10) + (my_string[i] - '0');
                 i++;
